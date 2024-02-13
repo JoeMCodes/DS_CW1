@@ -50,6 +50,6 @@ for entry in road_data:
 
 road_df = pd.DataFrame(road_df_list, columns = ['id', 'coordinates', 'Start_Date', 'End_Date'])
 
-settlement_df.to_csv(r'./data/derived/settlement_df.csv')
-road_df.to_csv(r'./data/derived/road_df.csv')
+settlement_df.to_csv(r'./data/derived/settlement_df.csv', index=False)
+road_df.to_csv(r'./data/derived/road_df.csv', index=False)
 
