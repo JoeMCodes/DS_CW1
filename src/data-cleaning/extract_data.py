@@ -14,6 +14,7 @@ df_list = [] ## We will create a list and convert to pd.df, this method takes co
 for location in data:
     id = location['id']
     PlaceType = location['placeTypes'] ## Type of 'place'
+    Description = location['description']
 
     if location['reprPoint'] != None: ## Deals with data missing reprPoint     
         reprPoint = location['reprPoint'] ## Representative coordinate
@@ -34,10 +35,10 @@ for location in data:
 
     Title = location['title']
 
-    row = [id, PlaceType, reprPoint[0], reprPoint[1], dates[0], dates[1], coords, Title]
+    row = [id, PlaceType, reprPoint[0], reprPoint[1], dates[0], dates[1], coords, Title, Description]
     df_list.append(row)
 
-Pleiades_df = pd.DataFrame(df_list, columns = ['id','Place_Type', 'long', 'lat', 'Start_Date', 'End_Date','Coords_List', 'Title']) 
+Pleiades_df = pd.DataFrame(df_list, columns = ['id','Place_Type', 'long', 'lat', 'Start_Date', 'End_Date','Coords_List', 'Title', 'Description']) 
 Pleiades_df.to_csv(r'./data/derived/Pleiades_df.csv', index=False)
 
 
