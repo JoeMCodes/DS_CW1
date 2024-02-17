@@ -5,5 +5,9 @@
 - Make the graph show 'destroyed' places instead of alive places
 
 # Come up with a figure 2
+- set sizes properly
+- PUT INTO HORIZ
+- add ticks, title, etc
+
 
 # Write article
