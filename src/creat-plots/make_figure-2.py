@@ -24,40 +24,81 @@ no_roman_places_117 = len(Roman_full[(Roman_full['Start_Date']<= 117)& (Roman_fu
 no_places_480 =len(df[(df['Start_Date']<= 480)& (df['End_Date']>=480)])
 no_roman_places_480 = len(Roman_full[(Roman_full['Start_Date']<= 480)& (Roman_full['End_Date']>=480)])
 
-### MAKE TEH PLOT
+### MAKE THE PLOT
 
 Category = ['27 BCE', '117 CE', '480 CE']
 
-fig, ax1 = plt.subplots(figsize=(9, 6))
+fig, ax1 = plt.subplots(figsize=(6, 6))
 
 
 X = np.arange(3)
 ax2 = ax1.twinx()
-# ax1.set_ylim(0,20000)
-# ax2.set_ylim(0,1600)
-# ax2.set_xticks([0, 750,1500,2250,3000])
-# ax2.set_xticklabels([0, 750,1500,2250,3000])
 
-ax1.bar(X, [no_places_27bc, no_places_117, no_places_480], color = 'blue', width = 0.25)
-ax2.bar(X+0.25, [no_roman_places_27bc, no_roman_places_117, no_roman_places_480], color = 'red', width = 0.25)
 
-# Zorder tells it which layer to put it on. We are setting this to 1 and our data to 2 so the grid is behind the data.
-ax1.grid(which="major", axis='y', color='#758D99', alpha=0.6, zorder=0)
+ax1.bar(X-0.15, [no_places_27bc, no_places_117, no_places_480], color = '#3EBCD2', width = 0.3, zorder = 2)
+ax2.bar(X+0.15, [no_roman_places_27bc, no_roman_places_117, no_roman_places_480], color = '#A81829', width = 0.3, zorder = 2)
+ax1.set_xlim(-1,3)
 
-# Remove splines. Can be done one at a time or can slice with a list.
+
+ax1.grid(which="major", axis='y', color='#758D99', alpha=0.6, zorder=1)
+
+# Remove splines
 ax1.spines[['top','left', 'right']].set_visible(False)
 
 # Make left spine slightly thicker
 ax1.spines[['bottom']].set_linewidth(1.1)
+
 ax2.spines[['top','left', 'right']].set_visible(False)
 
-# Reformat x-axis tick labels
-ax1.yaxis.set_tick_params(labelleft=True,
-                         left=False, 
-                         labelsize=11, 
-                         pad=-1)   
-# Reformat x-axis tick labels
-ax2.yaxis.set_tick_params(labelright=True,      # Put x-axis labels on top
+# Set custom labels for y-axis
+ax1.set_yticks([0,5000,10000,15000,20000])
+ax1.set_yticklabels([0,5,10,15,20], color = '#3EBCD2',
+                    ha = 'left',
+                    verticalalignment = 'bottom')
+
+ax2.set_yticks([0,300,600,900,1200])
+ax2.set_yticklabels([0,3,6,9,12], color = '#A81829',
+                    ha = 'right',
+                    verticalalignment='bottom')
+
+# Reformat y-axis tick labels
+ax1.yaxis.set_tick_params(labelleft=True,      # Put x-axis labels on left
+                         labelright=False,  # Set no x-axis labels on right
+                         left=False,       # Set no ticks on left
+                         labelsize=11,       # Set tick label size
+                         pad=-1)             # Lower tick labels a bit
+
+ax2.yaxis.set_tick_params(labelleft=False,      # Set no x-axis labels on left
+                         labelright=True,  # put x-axis labels on right
                          right=False,       # Set no ticks on right
                          labelsize=11,       # Set tick label size
                          pad=-1)             # Lower tick labels a bit
+
+plt.xticks(X, Category) 
+ax1.xaxis.set_tick_params(bottom = False, labelsize = 11, pad = 1)
+
+# Add in line and tag
+ax2.plot([0.12, .91],                  # Set width of line
+        [1.00, 1.00],                  # Set height of line
+        transform=fig.transFigure,   # Set location relative to plot
+        clip_on=False, 
+        color='#E3120B', 
+        linewidth=.6)
+ax1.add_patch(plt.Rectangle((0.12,1.00),                 # Set location of rectangle by lower left corder
+                           0.04,                       # Width of rectangle
+                           -0.02,                      # Height of rectangle. Negative so it goes down.
+                           facecolor='#E3120B', 
+                           transform=fig.transFigure, 
+                           clip_on=False, 
+                           linewidth = 0))
+
+# Add in title and axis titles
+ax1.text(x=0.12, y=.945, s="The Destruction of Roman Places", transform=fig.transFigure, ha='left', fontsize=13, weight=700, fontfamily = 'Sans')
+ax1.text(x=0.12, y=.87, s="Number of Ancient \'places\' \n'000",color ='#3EBCD2', transform=fig.transFigure, ha='left', weight = 400, fontsize=11, fontfamily = 'Sans')
+ax1.text(x=0.91, y=.87, s="Number of Roman \'places\'\n'00",color ='#A81829', transform=fig.transFigure, ha='right', weight = 400, fontsize=11, fontfamily = 'Sans')
+
+
+# Set source text
+ax1.text(x=0.12, y=.05, s="""Source: "Ancient places from Pleiades dataset" via pleiades.stoa.org""", transform=fig.transFigure, ha='left', fontsize=9, alpha=.75)
+
+plt.savefig(r'./outputs/figures/figure-2.svg', bbox_inches = 'tight', facecolor = 'white')
