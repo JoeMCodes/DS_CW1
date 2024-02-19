@@ -56,7 +56,10 @@ ax1.set_yticklabels([0,5,10,15,20], color = '#3EBCD2',
                     ha = 'left',
                     verticalalignment = 'bottom')
 
-ax2.set_yticks([0,300,600,900,1200])
+## Hacky scaling - The labels are not %100 accurate but the difference is very small
+## We scale like this so the two scales match up
+ax2_scale = (5000/no_places_117)*no_roman_places_117
+ax2.set_yticks([0,ax2_scale,ax2_scale*2,ax2_scale*3,ax2_scale*4])
 ax2.set_yticklabels([0,3,6,9,12], color = '#A81829',
                     ha = 'right',
                     verticalalignment='bottom')
