@@ -7,7 +7,7 @@ First we you need to create a virtual environment and download the required pack
 - py -m venv venv
 
 If on windows
-- . /venv/Scripts/activate
+- . venv/Scripts/activate
 
 Unix
 - venv/Bin/activate
