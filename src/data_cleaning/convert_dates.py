@@ -9,4 +9,5 @@ def convert_date(date: str):
     elif 'AD' in date:
         date = date.strip('AD ')
         date = int(date)
+    else: raise ValueError("Invalid input format")
     return(date)
