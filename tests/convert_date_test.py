@@ -18,7 +18,7 @@ def convert_date(date: str):
 def test_convert_date():
     # Test BC dates
     assert convert_date("500 BC") == -500
-    assert convert_date("1 BC") == -1
+    assert convert_date("1 BC") == -1 
     assert convert_date("1000 BC") == -1000
 
     # Test AD dates
