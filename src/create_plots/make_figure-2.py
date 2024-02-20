@@ -17,6 +17,8 @@ Roman_decri = df[df['Description'].str.lower().str.contains('a roman ')]
 Roman_full = pd.merge(Roman_title, Roman_decri, how = 'outer') 
 
 ## Get the number of places for different dates
+no_places_300bc =len(df[(df['Start_Date']<= -300)& (df['End_Date']>=-300)])
+no_roman_places_300bc = len(Roman_full[(Roman_full['Start_Date']<= -300)& (Roman_full['End_Date']>=-300)])
 no_places_27bc =len(df[(df['Start_Date']<= -27)& (df['End_Date']>=-27)])
 no_roman_places_27bc = len(Roman_full[(Roman_full['Start_Date']<= -27)& (Roman_full['End_Date']>=-27)])
 no_places_117 =len(df[(df['Start_Date']<= 117)& (df['End_Date']>=117)])
@@ -26,18 +28,18 @@ no_roman_places_480 = len(Roman_full[(Roman_full['Start_Date']<= 480)& (Roman_fu
 
 ### MAKE THE PLOT
 
-Category = ['27 BCE', '117 CE', '480 CE']
+Category = ['300 BCE','27 BCE', '117 CE', '480 CE']
 
 fig, ax1 = plt.subplots(figsize=(6, 6))
 
 
-X = np.arange(3)
+X = np.arange(4)
 ax2 = ax1.twinx()
 
 
-ax1.bar(X-0.15, [no_places_27bc, no_places_117, no_places_480], color = '#3EBCD2', width = 0.3, zorder = 2)
-ax2.bar(X+0.15, [no_roman_places_27bc, no_roman_places_117, no_roman_places_480], color = '#A81829', width = 0.3, zorder = 2)
-ax1.set_xlim(-1,3)
+ax1.bar(X-0.15, [no_places_300bc,no_places_27bc, no_places_117, no_places_480], color = '#3EBCD2', width = 0.3, zorder = 2)
+ax2.bar(X+0.15, [no_roman_places_300bc,no_roman_places_27bc, no_roman_places_117, no_roman_places_480], color = '#A81829', width = 0.3, zorder = 2)
+ax1.set_xlim(-1,4)
 
 
 ax1.grid(which="major", axis='y', color='#758D99', alpha=0.6, zorder=1)
